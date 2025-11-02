@@ -1,0 +1,44 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-size: 1.2rem;
+}
+.nav{
+    display: flex;
+    flex-direction: row;
+    gap: 30px;
+    justify-content: space-evenly;
+    text-align: center;
+    background-color: rgb(31, 184, 211);
+    padding: 20px;
+    
+}
+ul li{
+    list-style-type: none;
+}
+ul li a{
+    text-decoration: none;
+    font-size: 20px;
+    list-style-type: none;
+    color: black;
+    font-weight: 500;
+}
+ul li a:hover{
+    color: bisque;
+    font-size: 22px;
+}
+.footer{
+     display: flex;
+    flex-direction: row;
+    gap: 30px;
+    justify-content: space-evenly;
+    text-align: center;
+    background-color: rgb(31, 211, 115);
+    padding: 20px;
+    font-size: 20px;
+}
+.footer li{
+    list-style-type: none;
+    font-size: 20px;
+}

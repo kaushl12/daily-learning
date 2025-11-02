@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.7.7/axios.min.js"></script>
+</head>
+<body>
+    <div id="signup">
+        <h2>Sign-Up</h2> 
+        <input type="text" name="username" placeholder="Username" id="signup-username"> <br>
+        <input type="password" name="password" placeholder="Password" id="signup-password"> <br> <br>
+        <button onclick="signUp()">Submit</button>
+    </div>
+<hr>
+    <div id="signin">
+        <h2>Sign-In</h2> 
+        <input type="text" name="username" placeholder="Username" id="signin-username"><br>
+        <input type="password" name="password" placeholder="Password" id="signin-password"> <br> <br>
+        <button onclick="signIn()">Submit</button> <br>
+    </div>
+<hr>
+    <div>
+        User information: 
+        <div id="information"></div>
+    </div>
+<hr>
+<div>
+    <button onclick="logout()" id="btnlogout">Logout</button>
+</div>
+</body>
+<script>
+    async function signUp(){
+        const username=document.getElementById("signup-username").value
+        const password=document.getElementById("signup-password").value
+
+        const response= await axios.post('http://localhost:3000/signup',{
+            username:username,
+            password:password
+        })
+        alert("You have Signed-Up")
+    }
+    async function signIn(){
+        const username=document.getElementById("signin-username").value
+        const password=document.getElementById("signin-password").value
+
+        const response= await axios.post('http://localhost:3000/signin',{
+            username:username,
+            password:password
+        })
+        localStorage.setItem("token",response.data.token)
+        alert("You have Signed-In Successfully")
+
+
+  const token = localStorage.getItem("token");
+if(token){
+
+    document.getElementById("signin")?.remove();
+document.getElementById("signup")?.remove();
+}
+
+    }
+    function logout(){
+        localStorage.removeItem("token")
+    }
+    async function getUserInformation() {
+  const token = localStorage.getItem("token");
+
+  try {
+    if (!token) {
+      // No token, show login/signup and hide logout
+      document.getElementById("btnlogout")?.remove();
+      return;
+    }
+
+    // Try to fetch user info using the token
+    const response = await axios.get("http://localhost:3000/me", {
+      headers: {
+        token: token,
+      },
+    });
+
+    // If token is valid, remove signin/signup
+    document.getElementById("signin")?.remove();
+    document.getElementById("signup")?.remove();
+
+    // Show user info
+    document.getElementById("information").innerHTML =
+      `Username: ${response.data.username} & Password: ${response.data.password}`;
+  } catch (error) {
+    // Token might be invalid or expired
+    console.log("Authentication failed:", error.message);
+    localStorage.removeItem("token");
+    document.getElementById("btnlogout")?.remove();
+  }
+}
+
+    getUserInformation()
+</script>
+</html>
