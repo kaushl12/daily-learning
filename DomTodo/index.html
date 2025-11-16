@@ -1,0 +1,20 @@
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Dom Todo</title>
+        <link rel="stylesheet" href="style.css">
+    </head>
+    <body>
+        <h1>Todo-List</h1>
+
+        
+        <input type="text" placeholder="Enter Tasks here" id="read" >
+        <button type="submit" onclick="addTodo()" id="subtn">Submit</button>
+        <button type="submit" onclick="deleteLastTodo()" id="subtn">Delete Last Todo</button>
+        <button type="submit" onclick="deleteFirstTodo()" id="subtn">Delete First Todo</button>
+        <div id="todo"></div>
+    </body>
+    <script src="script.js"></script>
+    </html>
